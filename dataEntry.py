@@ -14,30 +14,58 @@ window.resizable(width=False, height=False)
 #    author_Lname.delete(0,"end")
 #    author_Other_name.delete(0,"end")
 
+# declaring string variable
+# for storing name and password
+get_book_title = tk.StringVar()
+get_book_subject = tk.StringVar()
+get_author_Lname = tk.StringVar()
+get_author_Oname = tk.StringVar()
+ 
+  
+# defining a function that will
+# get the name and password and
+# print them on the screen
+def submit():
+ 
+    get_book_entry = get_book_title.get()
+    get_subject_entry = get_book_subject.get()
+    get_Lname_entry = get_author_Lname.get()
+    get_Oname_entry = get_author_Oname.get()
+     
+    print("Title of the book: " + get_book_entry)
+    print("Subject of the book:  " + get_subject_entry)
+    print("Author's last name: " + get_Lname_entry)
+    print("Author's other names: " + get_Oname_entry)
+    
+    get_book_title.set("")
+    get_book_subject.set("")
+    get_author_Lname.set("")
+    get_author_Oname.set("")
+    
 
 # Create the book entry frame with an Entry
 #frm_entry = tk.Frame(master=window)
 book_title_lbl = tk.Label(window, text = 'Title of the book:', font=('calibre',10, 'bold'))
-book_title = tk.Entry(width=30)
+book_title = tk.Entry(width=30, textvariable=get_book_title)
 # get_entry = book_title.get(tk.END)
 # print(get_entry)
 # book_title.insert(0, "Title of the book.")
 
 subject_lbl = tk.Label(window, text = 'Subject of the book:', font=('calibre',10, 'bold'))
-subject = tk.Entry(width=30)
+subject = tk.Entry(width=30, textvariable=get_book_subject)
 # subject.insert(0, "Subject of the Book.")
 
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('calibre',10, 'bold'))
-author_Lname = tk.Entry(width=30)
+author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
 # author_Lname.insert(0, "Author's Last Name")
 
 author_Other_lbl = tk.Label(window, text = "Author's Other Name:", font=('calibre',10, 'bold'))
-author_Other_name = tk.Entry(width=30)
+author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
 # author_Other_name.insert(0, "Author's other name")
 
 # widget and label in it
-lbl_submit = tk.Button(text="Submit")
-lbl_quit = tk.Button(text="Quit")
+lbl_submit = tk.Button(window, text="Submit", command=submit)
+lbl_quit = tk.Button(window, text="Quit")
 
 book_title_lbl.grid(row=0, column=0)
 book_title.grid(row=0, column=1)
