@@ -15,12 +15,19 @@ window.resizable(width=False, height=False)
 #    author_Other_name.delete(0,"end")
 
 # declaring string variable
-# for storing name and password
+# for storing the entries value
 get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
  
+# function to get the fast 3 letters of 
+# the author's last name
+def fThree (Lname):
+    if len(Lname) >= 3:
+        return Lname[0:3]
+    else:
+        return f"Author's Last name must be more then 2 letters"
   
 # defining a function that will
 # get the name and password and
@@ -36,6 +43,12 @@ def submit():
     print("Subject of the book:  " + get_subject_entry)
     print("Author's last name: " + get_Lname_entry)
     print("Author's other names: " + get_Oname_entry)
+    if get_Lname_entry == "":
+        print("Now Dewey code generated")
+    elif len(get_Lname_entry) < 3:
+        print(fThree(get_Lname_entry))
+    else:
+        print("Dewey code is: ", get_subject_entry, "-", fThree(get_Lname_entry))
     
     get_book_title.set("")
     get_book_subject.set("")
