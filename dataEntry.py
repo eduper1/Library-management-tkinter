@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 # Set up the window
 window = tk.Tk()
 window.title("Book Classifier")
@@ -20,6 +21,20 @@ get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
+
+dewey_dict = {
+    "generalities":000,
+    "philosophy":100,
+    "religion":200,
+    "social science":300,
+    "language":400,
+    "natural science":500,
+    "technology":600,
+    "arts":700,
+    "literature":800,
+    "geography":900
+    }
+print(dewey_dict.values())
  
 # function to get the fast 3 letters of 
 # the author's last name
@@ -48,7 +63,9 @@ def submit():
     elif len(get_Lname_entry) < 3:
         print(fThree(get_Lname_entry))
     else:
-        print("Dewey code is: ", get_subject_entry, "-", fThree(get_Lname_entry))
+        for key, value in dict(dewey_dict).items():
+            if dewey_dict[key] == get_subject_entry.lower():
+                print("Dewey code is: ", dewey_dict[value], "-", fThree(get_Lname_entry))
     
     get_book_title.set("")
     get_book_subject.set("")
