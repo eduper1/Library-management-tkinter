@@ -47,6 +47,7 @@ def submit():
 #frm_entry = tk.Frame(master=window)
 book_title_lbl = tk.Label(window, text = 'Title of the book:', font=('calibre',10, 'bold'))
 book_title = tk.Entry(width=30, textvariable=get_book_title)
+book_title.focus_set()
 # get_entry = book_title.get(tk.END)
 # print(get_entry)
 # book_title.insert(0, "Title of the book.")
