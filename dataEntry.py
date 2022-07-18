@@ -35,6 +35,9 @@ dewey_dict = {
     "geography":900
     }
 print(dewey_dict.values())
+
+capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
+print(capital_dict.keys())
  
 # function to get the fast 3 letters of 
 # the author's last name
@@ -63,9 +66,12 @@ def submit():
     elif len(get_Lname_entry) < 3:
         print(fThree(get_Lname_entry))
     else:
-        for key, value in dict(dewey_dict).items():
-            if dewey_dict[key] == get_subject_entry.lower():
-                print("Dewey code is: ", dewey_dict[value], "-", fThree(get_Lname_entry))
+        for key, value in dict(capital_dict).items():
+            if capital_dict[key] is get_subject_entry.upper():
+                print("Dewey code is: ", capital_dict[value], "-", fThree(get_Lname_entry))
+                print(True)
+            else:
+                print(False)
     
     get_book_title.set("")
     get_book_subject.set("")
@@ -96,7 +102,7 @@ author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
 
 # widget and label in it
 lbl_submit = tk.Button(window, text="Submit", command=submit)
-lbl_quit = tk.Button(window, text="Quit")
+lbl_quit = tk.Button(window, text="Quit", command=window.quit)
 
 book_title_lbl.grid(row=0, column=0)
 book_title.grid(row=0, column=1)
