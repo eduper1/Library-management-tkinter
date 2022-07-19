@@ -1,4 +1,6 @@
 import tkinter as tk
+from openpyxl import workbook, load_workbook
+
 
 
 # Set up the window
@@ -8,6 +10,10 @@ window.title("Book Classifier")
 window.geometry("700x250")
 window.resizable(width=False, height=False)
 
+# open active excel workbook
+wb = load_workbook('books.xlsx')
+# open the active work sheet
+ws = wb.active
 # function to delete temporary text when focusIn event is triggered
 # def temp_text(event):
 #    book_title.delete(0,"end")
@@ -68,8 +74,13 @@ def submit():
     else:
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
-                print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
-                print(True)
+                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_author_Oname]
+                dewey_code = str(value) + '-' + fThree(get_Lname_entry)
+                data_list.append(dewey_code)
+                # print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
+                ws.append(data_list)
+                
+                # print(True)
         print("The subject is not found")
         print(False)
     
@@ -125,6 +136,9 @@ lbl_quit.grid(row=3, column=1, sticky="w")
 # subject.bind("<FocusIn>", temp_text)
 # author_Lname.bind("<FocusIn>", temp_text)
 # author_Other_name.bind("<FocusIn>", temp_text)
+
+# save the workbook
+wb.save('books.xlsx')
 
 # Run the application
 window.mainloop()
