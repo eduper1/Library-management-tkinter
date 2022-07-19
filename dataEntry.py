@@ -74,11 +74,16 @@ def submit():
     else:
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
-                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_author_Oname]
-                dewey_code = str(value) + '-' + fThree(get_Lname_entry)
+                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry]
+                dewey_code = f'{value} - {fThree(get_Lname_entry)}'
+                print(dewey_code)
                 data_list.append(dewey_code)
+                print(data_list)
                 # print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
                 ws.append(data_list)
+                # save the workbook
+                wb.save('books.xlsx')
+                
                 
                 # print(True)
         print("The subject is not found")
@@ -137,8 +142,6 @@ lbl_quit.grid(row=3, column=1, sticky="w")
 # author_Lname.bind("<FocusIn>", temp_text)
 # author_Other_name.bind("<FocusIn>", temp_text)
 
-# save the workbook
-wb.save('books.xlsx')
 
 # Run the application
 window.mainloop()
