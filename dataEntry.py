@@ -66,12 +66,12 @@ def submit():
     elif len(get_Lname_entry) < 3:
         print(fThree(get_Lname_entry))
     else:
-        for key, value in dict(capital_dict).items():
-            if capital_dict[key] is get_subject_entry.upper():
-                print("Dewey code is: ", capital_dict[value], "-", fThree(get_Lname_entry))
+        for key, value in capital_dict.items():
+            if get_subject_entry.upper() == key:
+                print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
                 print(True)
-            else:
-                print(False)
+        print("The subject is not found")
+        print(False)
     
     get_book_title.set("")
     get_book_subject.set("")
