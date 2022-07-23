@@ -117,13 +117,13 @@ author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
 # author_Other_name.insert(0, "Author's other name")
 
 # submit button to react on Return event 
-def btn_submit(Event):
+def btn_submit_return(Event):
     return submit()
 
 # widget and label in it
-lbl_submit = tk.Button(window, text="Submit", command=submit)
-lbl_submit.bind('<Return>', btn_submit)
-lbl_quit = tk.Button(window, text="Quit", command=window.quit)
+btn_submit = tk.Button(window, text="Submit", command=submit)
+btn_submit.bind('<Return>', btn_submit_return)
+btn_quit = tk.Button(window, text="Quit", command=window.quit)
 
 book_title_lbl.grid(row=0, column=0)
 book_title.grid(row=0, column=1)
