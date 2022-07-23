@@ -120,10 +120,15 @@ author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
 def btn_submit_return(Event):
     return submit()
 
+# Quit btn to react on return event
+def btn_quit_return(Event):
+    return window.quit()
+
 # widget and label in it
 btn_submit = tk.Button(window, text="Submit", command=submit)
 btn_submit.bind('<Return>', btn_submit_return)
 btn_quit = tk.Button(window, text="Quit", command=window.quit)
+btn_quit.bind('<Return>', btn_quit_return)
 
 book_title_lbl.grid(row=0, column=0)
 book_title.grid(row=0, column=1)
@@ -138,8 +143,8 @@ author_Other_lbl.grid(row=2, column=2)
 author_Other_name.grid(row=2, column=3)
 # subject.place(x=40, y= 20)
 
-lbl_submit.grid(row=3, column=0, sticky="e")
-lbl_quit.grid(row=3, column=1, sticky="w")
+btn_submit.grid(row=3, column=0, sticky="e")
+btn_quit.grid(row=3, column=1, sticky="w")
 
 # run event
 # book_title.bind("<FocusIn>", temp_text)
