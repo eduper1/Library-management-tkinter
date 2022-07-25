@@ -155,8 +155,8 @@ author_Other_lbl.grid(row=2, column=2, ipadx=10, ipady=4, pady=10)
 author_Other_name.grid(row=2, column=3, ipadx=10, ipady=4, pady= 10)
 # subject.place(x=40, y= 20)
 
-btn_submit.grid(row=3, column=0, sticky="e", ipadx=10, ipady=4)
-btn_quit.grid(row=3, column=1, sticky="e", ipadx=10, ipady=4)
+btn_submit.grid(row=3, column=0, columnspan=2, sticky="e", ipadx=10, ipady=4)
+btn_quit.grid(row=3, column=1, columnspan=2, sticky="e", ipadx=10, ipady=4) 
 
 # run event
 # book_title.bind("<FocusIn>", temp_text)
