@@ -65,14 +65,22 @@ def submit():
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
-     
+    
+    detail_msg = ''
+    book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
+    book_detail_lbl.grid(row=4, column=0)
+    
     print("Title of the book: " + get_book_entry)
     print("Subject of the book:  " + get_subject_entry)
     print("Author's last name: " + get_Lname_entry)
     print("Author's other names: " + get_Oname_entry)
     if get_Lname_entry == "":
+        # book_detail_lbl.grid(row=4, column=0)
+        book_detail_lbl['text']=""
+        
         print("Now Dewey code generated")
     elif len(get_Lname_entry) < 3:
+        book_detail_lbl['text']=fThree(get_Lname_entry)
         print(fThree(get_Lname_entry))
     else:
         for key, value in capital_dict.items():
@@ -82,15 +90,18 @@ def submit():
                 print(dewey_code)
                 data_list.append(dewey_code)
                 print(data_list)
+                detail_msg = f'BOOK NAME:\t{get_book_entry}\nCLASSIFICATION:\t{dewey_code}'
                 # print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
                 ws.append(data_list)
                 # save the workbook
                 wb.save('books.xlsx')
+                # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
+                book_detail_lbl['text']= detail_msg
                 
                 
                 # print(True)
-        print("The subject is not found")
-        print(False)
+        # print("The subject is not found")
+        # print(False)
     
     get_book_title.set("")
     get_book_subject.set("")
