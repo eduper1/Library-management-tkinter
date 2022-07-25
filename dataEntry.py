@@ -1,3 +1,4 @@
+from sys import displayhook
 import tkinter as tk
 from openpyxl import workbook, load_workbook
 
@@ -52,6 +53,8 @@ def fThree (Lname):
         return Lname[0:3]
     else:
         return f"Author's Last name must be more then 2 letters"
+
+
   
 # defining a function that will
 # get the name and password and
@@ -110,6 +113,7 @@ subject = tk.Entry(width=30, textvariable=get_book_subject)
 
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('calibre',10, 'bold'))
 author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
+
 # author_Lname.insert(0, "Author's Last Name")
 
 author_Other_lbl = tk.Label(window, text = "Author's Other Name:", font=('calibre',10, 'bold'))
@@ -124,27 +128,35 @@ def btn_submit_return(Event):
 def btn_quit_return(Event):
     return window.quit()
 
+# function to display authors last name is < 3 letters
+# def show_text(Event):
+#     display = tk.Label(text="Author's last name must not be less than 3")
+#     return display.pack()
+
+# if len(get_author_Lname.get()) < 3:
+#     author_Lname.bind('Tab', show_text)
+
 # widget and label in it
 btn_submit = tk.Button(window, text="Submit", command=submit)
 btn_submit.bind('<Return>', btn_submit_return)
 btn_quit = tk.Button(window, text="Quit", command=window.quit)
-btn_quit.bind('<Return>', btn_quit_return)
+#btn_quit.bind('<>', btn_quit_return)
 
-book_title_lbl.grid(row=0, column=0)
-book_title.grid(row=0, column=1)
+book_title_lbl.grid(row=0, column=0, ipadx=10, ipady=4, pady=10)
+book_title.grid(row=0, column=1, ipadx=10, ipady=4, pady=10)
 
-subject_lbl.grid(row=1, column=0)
-subject.grid(row=1, column=1)
+subject_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10)
+subject.grid(row=1, column=1, ipadx=10, ipady=4, pady=10)
 
-author_Lname_lbl.grid(row=2, column=0)
-author_Lname.grid(row=2, column=1)
+author_Lname_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10)
+author_Lname.grid(row=2, column=1, ipadx=10, ipady=4, pady=10)
 
-author_Other_lbl.grid(row=2, column=2)
-author_Other_name.grid(row=2, column=3)
+author_Other_lbl.grid(row=2, column=2, ipadx=10, ipady=4, pady=10)
+author_Other_name.grid(row=2, column=3, ipadx=10, ipady=4, pady= 10)
 # subject.place(x=40, y= 20)
 
-btn_submit.grid(row=3, column=0, sticky="e")
-btn_quit.grid(row=3, column=1, sticky="w")
+btn_submit.grid(row=3, column=0, sticky="e", ipadx=10, ipady=4)
+btn_quit.grid(row=3, column=1, sticky="e", ipadx=10, ipady=4)
 
 # run event
 # book_title.bind("<FocusIn>", temp_text)
