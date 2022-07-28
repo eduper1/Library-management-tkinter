@@ -1,4 +1,3 @@
-from sys import displayhook
 import tkinter as tk
 from openpyxl import workbook, load_workbook
 
