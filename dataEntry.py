@@ -7,7 +7,7 @@ from openpyxl import workbook, load_workbook
 window = tk.Tk()
 window.title("Book Classifier")
 # Define geometry of the window
-window.geometry("700x250")
+window.geometry("900x250")
 window.resizable(width=False, height=False)
 
 # open active excel workbook
