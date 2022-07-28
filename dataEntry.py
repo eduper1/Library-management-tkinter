@@ -82,6 +82,7 @@ def submit():
     elif len(get_Lname_entry) < 3:
         book_detail_lbl['text']= ""
         book_detail_lbl['text']=fThree(get_Lname_entry)
+        author_Lname.focus_set()
         print(fThree(get_Lname_entry))
     else:
         for key, value in capital_dict.items():
@@ -99,17 +100,14 @@ def submit():
                 # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
                 book_detail_lbl['text']= ""
                 book_detail_lbl['text']= detail_msg
-                
-                
                 # print(True)
-        # print("The subject is not found")
-        # print(False)
-    
-    get_book_title.set("")
-    get_book_subject.set("")
-    get_author_Lname.set("")
-    get_author_Oname.set("")
-    book_title.focus_set()
+                # print("The subject is not found")
+                # print(False)
+                get_book_title.set("")
+                get_book_subject.set("")
+                get_author_Lname.set("")
+                get_author_Oname.set("")
+                book_title.focus_set()
     
     
 
