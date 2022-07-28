@@ -65,8 +65,9 @@ def submit():
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     
-    detail_msg = ''
-    book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
+    
+    book_detail_lbl = tk.Label(window, text = '', font=('calibre',10, 'bold'))
+    # book_detail_lbl['text']= ''
     book_detail_lbl.grid(row=4, column=0)
     
     print("Title of the book: " + get_book_entry)
@@ -75,10 +76,11 @@ def submit():
     print("Author's other names: " + get_Oname_entry)
     if get_Lname_entry == "":
         # book_detail_lbl.grid(row=4, column=0)
-        book_detail_lbl['text']=""
+        book_detail_lbl['text']= ""
         
         print("Now Dewey code generated")
     elif len(get_Lname_entry) < 3:
+        book_detail_lbl['text']= ""
         book_detail_lbl['text']=fThree(get_Lname_entry)
         print(fThree(get_Lname_entry))
     else:
@@ -95,6 +97,7 @@ def submit():
                 # save the workbook
                 wb.save('books.xlsx')
                 # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
+                book_detail_lbl['text']= ""
                 book_detail_lbl['text']= detail_msg
                 
                 
@@ -106,6 +109,8 @@ def submit():
     get_book_subject.set("")
     get_author_Lname.set("")
     get_author_Oname.set("")
+    book_title.focus_set()
+    
     
 
 # Create the book entry frame with an Entry
