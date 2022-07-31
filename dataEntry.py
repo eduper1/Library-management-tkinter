@@ -1,14 +1,15 @@
 import tkinter as tk
 from openpyxl import workbook, load_workbook
-
+from PIL import ImageTk
+from PIL import Image
 
 
 # Set up the window
 window = tk.Tk()
 window.title("Book Classifier")
 # Define geometry of the window
-window.geometry("900x250")
-window.resizable(width=False, height=False)
+window.geometry("900x350")       
+#  window.resizable(width=False, height=False)
 
 # open active excel workbook
 wb = load_workbook('books.xlsx')
@@ -27,6 +28,12 @@ get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
+
+# american space logo
+as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
+tk.Label(image=as_logo).grid(row=0, column=0, columnspan=1)
+# # imgobj = PhotoImage(file='images/as.png')
+# label['image'] = imgobj
 
 dewey_dict = {
     "generalities":000,
@@ -68,7 +75,7 @@ def submit():
     
     book_detail_lbl = tk.Label(window, text = '', font=('calibre',10, 'bold'))
     # book_detail_lbl['text']= ''
-    book_detail_lbl.grid(row=4, column=0)
+    book_detail_lbl.grid(row=5, column=0)
     
     print("Title of the book: " + get_book_entry)
     print("Subject of the book:  " + get_subject_entry)
@@ -155,21 +162,21 @@ btn_submit.bind('<Return>', btn_submit_return)
 btn_quit = tk.Button(window, text="Quit", command=window.quit)
 #btn_quit.bind('<>', btn_quit_return)
 
-book_title_lbl.grid(row=0, column=0, ipadx=10, ipady=4, pady=10)
-book_title.grid(row=0, column=1, ipadx=10, ipady=4, pady=10)
+book_title_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10)
+book_title.grid(row=1, column=1, ipadx=10, ipady=4, pady=10)
 
-subject_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10)
-subject.grid(row=1, column=1, ipadx=10, ipady=4, pady=10)
+subject_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10)
+subject.grid(row=2, column=1, ipadx=10, ipady=4, pady=10)
 
-author_Lname_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10)
-author_Lname.grid(row=2, column=1, ipadx=10, ipady=4, pady=10)
+author_Lname_lbl.grid(row=3, column=0, ipadx=10, ipady=4, pady=10)
+author_Lname.grid(row=3, column=1, ipadx=10, ipady=4, pady=10)
 
-author_Other_lbl.grid(row=2, column=2, ipadx=10, ipady=4, pady=10)
-author_Other_name.grid(row=2, column=3, ipadx=10, ipady=4, pady= 10)
+author_Other_lbl.grid(row=3, column=2, ipadx=10, ipady=4, pady=10)
+author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10)
 # subject.place(x=40, y= 20)
 
-btn_submit.grid(row=3, column=0, columnspan=2, sticky="e", ipadx=10, ipady=4)
-btn_quit.grid(row=3, column=1, columnspan=2, sticky="e", ipadx=10, ipady=4) 
+btn_submit.grid(row=4, column=0, columnspan=2, sticky="e", ipadx=10, ipady=4)
+btn_quit.grid(row=4, column=1, columnspan=2, sticky="e", ipadx=10, ipady=4) 
 
 # run event
 # book_title.bind("<FocusIn>", temp_text)
