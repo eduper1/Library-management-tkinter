@@ -31,7 +31,15 @@ get_author_Oname = tk.StringVar()
 
 # american space logo
 as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
-tk.Label(image=as_logo).grid(row=0, column=0, columnspan=1)
+tk.Label(image=as_logo).grid(row=0, column=0, pady=10, ipadx=10, sticky='w')
+
+# header text
+tk.Label(window, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, ipady=10, sticky='ew')
+
+# mewa logo
+mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
+tk.Label(image=mewa_logo).grid(row=0, column=3, pady=10, ipadx=10, sticky='e')
+
 # # imgobj = PhotoImage(file='images/as.png')
 # label['image'] = imgobj
 
@@ -162,21 +170,21 @@ btn_submit.bind('<Return>', btn_submit_return)
 btn_quit = tk.Button(window, text="Quit", command=window.quit)
 #btn_quit.bind('<>', btn_quit_return)
 
-book_title_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10)
-book_title.grid(row=1, column=1, ipadx=10, ipady=4, pady=10)
+book_title_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
+book_title.grid(row=1, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
 
-subject_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10)
-subject.grid(row=2, column=1, ipadx=10, ipady=4, pady=10)
+subject_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
+subject.grid(row=2, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
 
-author_Lname_lbl.grid(row=3, column=0, ipadx=10, ipady=4, pady=10)
-author_Lname.grid(row=3, column=1, ipadx=10, ipady=4, pady=10)
+author_Lname_lbl.grid(row=3, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
+author_Lname.grid(row=3, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
 
 author_Other_lbl.grid(row=3, column=2, ipadx=10, ipady=4, pady=10)
-author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10)
+author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10, sticky='w')
 # subject.place(x=40, y= 20)
 
-btn_submit.grid(row=4, column=0, columnspan=2, sticky="e", ipadx=10, ipady=4)
-btn_quit.grid(row=4, column=1, columnspan=2, sticky="e", ipadx=10, ipady=4) 
+btn_submit.grid(row=4, column=1, sticky="w", ipadx=10, ipady=4)
+btn_quit.grid(row=4, column=3, sticky="w", ipadx=10, ipady=4) 
 
 # run event
 # book_title.bind("<FocusIn>", temp_text)
