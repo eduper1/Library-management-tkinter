@@ -80,8 +80,8 @@ def submit():
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     
-    
-    book_detail_lbl = tk.Label(window, text = '', font=('Courier',12, 'bold'))
+    msg = tk.StringVar(value='')
+    book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
     # book_detail_lbl['text']= ''
     book_detail_lbl.grid(row=5, column=0)
     
@@ -91,12 +91,14 @@ def submit():
     print("Author's other names: " + get_Oname_entry)
     if get_Lname_entry == "":
         # book_detail_lbl.grid(row=4, column=0)
-        book_detail_lbl['text']= ""
+        # book_detail_lbl['text']= ""
+        msg.set('value')
         
         print("Now Dewey code generated")
     elif len(get_Lname_entry) < 3:
-        book_detail_lbl['text']= ""
-        book_detail_lbl['text']=fThree(get_Lname_entry)
+        # book_detail_lbl['text']= ""
+        # book_detail_lbl['text']=fThree(get_Lname_entry)
+        msg.set(fThree(get_Lname_entry))
         author_Lname.focus_set()
         print(fThree(get_Lname_entry))
     else:
@@ -113,8 +115,9 @@ def submit():
                 # save the workbook
                 wb.save('books.xlsx')
                 # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
-                book_detail_lbl['text']= ""
-                book_detail_lbl['text']= detail_msg
+                # book_detail_lbl['text']= ""
+                # book_detail_lbl['text']= detail_msg
+                msg.set(detail_msg)
                 # print(True)
                 # print("The subject is not found")
                 # print(False)
@@ -123,6 +126,8 @@ def submit():
                 get_author_Lname.set("")
                 get_author_Oname.set("")
                 book_title.focus_set()
+        msg.set('')
+    
     
     
 
