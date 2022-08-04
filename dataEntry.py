@@ -80,9 +80,9 @@ def submit():
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     
-    msg = tk.StringVar(value='')
+    msg = tk.StringVar()
+    msg.set('')
     book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
-    # book_detail_lbl['text']= ''
     book_detail_lbl.grid(row=5, column=0)
     
     print("Title of the book: " + get_book_entry)
@@ -96,12 +96,16 @@ def submit():
         
         print("Now Dewey code generated")
     elif len(get_Lname_entry) < 3:
+        # print('msg is resetting')
+        # msg.set('')
         # book_detail_lbl['text']= ""
         # book_detail_lbl['text']=fThree(get_Lname_entry)
         msg.set(fThree(get_Lname_entry))
         author_Lname.focus_set()
         print(fThree(get_Lname_entry))
     else:
+        print('msg is resetting')
+        msg.set('')
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
                 data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry]
@@ -117,6 +121,7 @@ def submit():
                 # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
                 # book_detail_lbl['text']= ""
                 # book_detail_lbl['text']= detail_msg
+                print('msg ')
                 msg.set(detail_msg)
                 # print(True)
                 # print("The subject is not found")
@@ -126,7 +131,11 @@ def submit():
                 get_author_Lname.set("")
                 get_author_Oname.set("")
                 book_title.focus_set()
-        msg.set('')
+    print(msg)
+    # print('msg is resetting')
+    # msg.set('')
+    
+        
     
     
     
