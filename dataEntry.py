@@ -69,21 +69,20 @@ def fThree (Lname):
         return f"Author's Last name must be more then 2 letters"
 
 
+# feedback
+def feedback():
+    pass
   
 # defining a function that will
 # get the name and password and
 # print them on the screen
 def submit():
- 
+    global msg
     get_book_entry = get_book_title.get()
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     
-    msg = tk.StringVar()
-    msg.set('')
-    book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
-    book_detail_lbl.grid(row=5, column=0)
     
     print("Title of the book: " + get_book_entry)
     print("Subject of the book:  " + get_subject_entry)
@@ -206,6 +205,9 @@ btn_quit.grid(row=4, column=3, sticky="w", ipadx=10, ipady=4)
 # author_Lname.bind("<FocusIn>", temp_text)
 # author_Other_name.bind("<FocusIn>", temp_text)
 
+msg = tk.StringVar()
+book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
+book_detail_lbl.grid(row=5, column=0)
 
 # Run the application
 window.mainloop()
