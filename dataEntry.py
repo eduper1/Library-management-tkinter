@@ -8,7 +8,7 @@ from PIL import Image
 window = tk.Tk()
 window.title("Book Classifier")
 # Define geometry of the window
-window.geometry("900x350")       
+window.geometry("1000x350")       
 #  window.resizable(width=False, height=False)
 
 # open active excel workbook
@@ -161,6 +161,10 @@ author_Other_lbl = tk.Label(window, text = "Author's Other Name:", font=('Courie
 author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
 # author_Other_name.insert(0, "Author's other name")
 
+# feedback message
+msg = tk.StringVar()
+book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
+
 # submit button to react on Return event 
 def btn_submit_return(Event):
     return submit()
@@ -199,15 +203,14 @@ author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10, sticky='w')
 btn_submit.grid(row=4, column=1, sticky="w", ipadx=10, ipady=4)
 btn_quit.grid(row=4, column=3, sticky="w", ipadx=10, ipady=4) 
 
+book_detail_lbl.grid(row=5, column=0, columnspan=4, pady=10)
+
 # run event
 # book_title.bind("<FocusIn>", temp_text)
 # subject.bind("<FocusIn>", temp_text)
 # author_Lname.bind("<FocusIn>", temp_text)
 # author_Other_name.bind("<FocusIn>", temp_text)
 
-msg = tk.StringVar()
-book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
-book_detail_lbl.grid(row=5, column=0)
 
 # Run the application
 window.mainloop()
