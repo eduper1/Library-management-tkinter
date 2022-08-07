@@ -77,12 +77,13 @@ def feedback():
 # get the name and password and
 # print them on the screen
 def submit():
-    global msg
+    # global msg
     get_book_entry = get_book_title.get()
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     
+    author_Lname.config(highlightthickness=2, highlightcolor="grey")
     
     print("Title of the book: " + get_book_entry)
     print("Subject of the book:  " + get_subject_entry)
@@ -97,14 +98,16 @@ def submit():
     elif len(get_Lname_entry) < 3:
         # print('msg is resetting')
         # msg.set('')
-        # book_detail_lbl['text']= ""
+        # book_
+        # detail_lbl['text']= ""
         # book_detail_lbl['text']=fThree(get_Lname_entry)
         msg.set(fThree(get_Lname_entry))
         author_Lname.focus_set()
+        author_Lname.config(highlightthickness=2, highlightcolor="red")
         print(fThree(get_Lname_entry))
     else:
-        print('msg is resetting')
-        msg.set('')
+        # print('msg is resetting')
+        # msg.set('')
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
                 data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry]
@@ -130,7 +133,7 @@ def submit():
                 get_author_Lname.set("")
                 get_author_Oname.set("")
                 book_title.focus_set()
-    print(msg)
+    # print(msg)
     # print('msg is resetting')
     # msg.set('')
     
