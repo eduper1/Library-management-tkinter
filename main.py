@@ -1,10 +1,12 @@
 import tkinter as tk
+from tkinter import ttk
 from openpyxl import workbook, load_workbook
 from PIL import ImageTk
 from PIL import Image
+# from tkinter import ttk
+# from tkinter.ttk import *
 import settings
-# import utils
-# import widgets
+
 
 
 # Set up the window
@@ -20,16 +22,17 @@ wb = load_workbook('books.xlsx')
 ws = wb.active
 
 dewey_dict = {
-    "generalities":000,
-    "philosophy":100,
+    "Fiction":"FIC",
+    "Computer science & general works":000,
+    "Philosophy & psychology":100,
     "religion":200,
-    "social science":300,
-    "language":400,
-    "natural science":500,
-    "technology":600,
-    "arts":700,
-    "literature":800,
-    "geography":900
+    "Social sciences":300,
+    "Language":400,
+    "Science":500,
+    "Technology":600,
+    "Arts & recreation":700,
+    "Literature":800,
+    "History & geography":900
     }
 
 capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
@@ -54,53 +57,32 @@ def submit():
     get_Oname_entry = get_author_Oname.get()
     
     author_Lname.config(highlightthickness=1, highlightcolor="black")
-    
-    # print("Title of the book: " + get_book_entry)
-    # print("Subject of the book:  " + get_subject_entry)
-    # print("Author's last name: " + get_Lname_entry)
-    # print("Author's other names: " + get_Oname_entry)
+
     if get_Lname_entry == "":
-        # book_detail_lbl.grid(row=4, column=0)
-        # book_detail_lbl['text']= ""
         msg.set('value')
-        
-        print("Now Dewey code generated")
     elif len(get_Lname_entry) < 3:
         msg.set(fThree(get_Lname_entry))
         author_Lname.focus_set()
         author_Lname.config(highlightthickness=2, highlightcolor="red")
-        # print(fThree(get_Lname_entry))
     else:
-        # print('msg is resetting')
-        # msg.set('')
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
                 data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry]
-                dewey_code = f'{value} - {fThree(get_Lname_entry)}'
-                # print(dewey_code)
+                dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
                 data_list.append(dewey_code)
-                # print(data_list)
-                detail_msg = f'BOOK NAME:\t{get_book_entry}\nCLASSIFICATION:\t{dewey_code}'
-                # print("Dewey code is: ", value, "-", fThree(get_Lname_entry))
+                detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}'
                 ws.append(data_list)
+
                 # save the workbook
                 wb.save('books.xlsx')
-                # book_detail_lbl = tk.Label(window, text = detail_msg, font=('calibre',10, 'bold'))
-                # book_detail_lbl['text']= ""
-                # book_detail_lbl['text']= detail_msg
-                # print('msg ')
+
                 msg.set(detail_msg)
-                # print(True)
-                # print("The subject is not found")
-                # print(False)
                 get_book_title.set("")
                 get_book_subject.set("")
                 get_author_Lname.set("")
                 get_author_Oname.set("")
                 book_title.focus_set()
-    # print(msg)
-    # print('msg is resetting')
-    # msg.set('')
+
 
 # submit button to react on Return event 
 def btn_submit_return(Event):
@@ -109,6 +91,10 @@ def btn_submit_return(Event):
 # Quit btn to react on return event
 def btn_quit_return(Event):
     return window.quit()
+
+# combobox selected
+def combo(Event):
+    subject.select_clear()
 
 # declaring string variable
 # for storing the entries value
@@ -136,7 +122,26 @@ book_title = tk.Entry(width=30, textvariable=get_book_title)
 book_title.focus_set()
 
 subject_lbl = tk.Label(window, text = 'Subject of the book:', font=('Courier',12, 'bold'))
-subject = tk.Entry(width=30, textvariable=get_book_subject)
+subject = ttk.Combobox(window, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='green')
+subject['values'] = (
+    'Fiction',
+    'Computer science & general works',
+    'Philosophy & psychology',
+    'Religion',
+    'Social sciences',
+    'Language',
+    'Science',
+    'Technology',
+    'Arts & recreation',
+    'Literature',
+    'History & geography'
+)
+subject.state(["readonly"])
+subject.current(0)
+subject.bind('<<ComboboxSelected>>', combo)
+
+# print(subject.get(), subject.current())
+# subject = tk.Entry(width=30, textvariable=get_book_subject)
 # subject.insert(0, "Subject of the Book.")
 
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('Courier',12, 'bold'))
