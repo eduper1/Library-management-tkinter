@@ -55,6 +55,7 @@ def submit():
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
+    get_quality = quality.get()
     
     author_Lname.config(highlightthickness=1, highlightcolor="black")
 
@@ -67,7 +68,7 @@ def submit():
     else:
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
-                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry]
+                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry, get_quality]
                 dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
                 data_list.append(dewey_code)
                 detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}'
@@ -102,6 +103,7 @@ get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
+quality = tk.StringVar()
 msg = tk.StringVar()
 
 # american space logo
@@ -122,7 +124,7 @@ book_title = tk.Entry(width=30, textvariable=get_book_title)
 book_title.focus_set()
 
 subject_lbl = tk.Label(window, text = 'Subject of the book:', font=('Courier',12, 'bold'))
-subject = ttk.Combobox(window, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='green')
+subject = ttk.Combobox(window, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='black')
 subject['values'] = (
     'Fiction',
     'Computer science & general works',
@@ -140,16 +142,30 @@ subject.state(["readonly"])
 subject.current(0)
 subject.bind('<<ComboboxSelected>>', combo)
 
-# print(subject.get(), subject.current())
-# subject = tk.Entry(width=30, textvariable=get_book_subject)
-# subject.insert(0, "Subject of the Book.")
 
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('Courier',12, 'bold'))
 author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
 
 author_Other_lbl = tk.Label(window, text = "Author's Other Name:", font=('Courier',12, 'bold'))
 author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
-# author_Other_name.insert(0, "Author's other name")
+
+# radiobutton to check quality of the book
+state_lbl = ttk.Label(window, text = "State of the book: ", font=('Courier',12, 'bold'))
+
+quality_values = (
+    'New',
+    'Used',
+    'Old'
+)
+
+for value in quality_values:
+    radioCheck = ttk.Radiobutton(
+        window,
+        text=value,
+        value=value,
+        variable=quality
+    )
+    radioCheck.grid(row=4, column=(quality_values.index(value)+1), ipadx=10, ipady=4, pady= 10, sticky='w')
 
 # widget and label in it
 btn_submit = tk.Button(window, text="Submit", command=submit, font=('Courier',12, 'bold'))
@@ -171,12 +187,13 @@ author_Lname.grid(row=3, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
 
 author_Other_lbl.grid(row=3, column=2, ipadx=10, ipady=4, pady=10)
 author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10, sticky='w')
-# subject.place(x=40, y= 20)
 
-btn_submit.grid(row=4, column=1, sticky="w", ipadx=10, ipady=4)
-btn_quit.grid(row=4, column=3, sticky="w", ipadx=10, ipady=4) 
+state_lbl.grid(row=4, column=0, ipadx=10, ipady=4, padx=10, sticky='w')
 
-book_detail_lbl.grid(row=5, column=0, columnspan=4, pady=10)
+btn_submit.grid(row=6, column=1, sticky="w", ipadx=10, ipady=4)
+btn_quit.grid(row=6, column=3, sticky="w", ipadx=10, ipady=4) 
+
+book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
 
 
 # Run the application
