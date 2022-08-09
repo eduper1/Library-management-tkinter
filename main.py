@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-from openpyxl import workbook, load_workbook
 from PIL import ImageTk
 from PIL import Image
 import settings
+import utils
 
 
 
@@ -11,13 +11,7 @@ import settings
 window = tk.Tk()
 window.title("Book Classifier")
 
-# Define geometry of the window
-window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}')       
 
-# open active excel workbook
-wb = load_workbook('books.xlsx')
-# open the active work sheet
-ws = wb.active
 
 dewey_dict = {
     "Fiction":"FIC",
@@ -53,6 +47,7 @@ def submit():
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
+    get_qty_entry = get_qty.get()
     get_quality = quality.get()
     get_extra = extraWord.get('1.0', 'end')
     
@@ -71,18 +66,20 @@ def submit():
                 dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
                 data_list.append(dewey_code)
                 detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}'
-                ws.append(data_list)
+                if int(get_qty_entry)  > 0:
+                    utils.cal_qty(int(get_qty_entry), data_list)
+                    msg.set(detail_msg)
+                    get_book_title.set("")
+                    get_book_subject.set("")
+                    get_author_Lname.set("")
+                    get_author_Oname.set("")
+                    extraWord.delete('1.0', 'end')
+                    book_title.focus_set() 
 
-                # save the workbook
-                wb.save('books.xlsx')
+                else:
+                    # books_qty.config(highlightcolor="red")
+                    msg.set('Quantity must be greater than 1')
 
-                msg.set(detail_msg)
-                get_book_title.set("")
-                get_book_subject.set("")
-                get_author_Lname.set("")
-                get_author_Oname.set("")
-                extraWord.delete('1.0', 'end')
-                book_title.focus_set()
 
 
 # submit button to react on Return event 
@@ -106,6 +103,7 @@ get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
+get_qty = tk.StringVar(value=1)
 quality = tk.StringVar()
 msg = tk.StringVar()
 
@@ -114,7 +112,7 @@ as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
 tk.Label(image=as_logo).grid(row=0, column=0, pady=10, ipadx=10, sticky='w')
 
 # header text
-tk.Label(window, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, ipady=10, sticky='ew')
+tk.Label(window, text = "American Corner Mombasa", font=('Times',20, 'bold'), justify="center").grid(row=0, column=1, columnspan=2, ipady=10, sticky='ew')
 
 # mewa logo
 mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
@@ -144,6 +142,9 @@ subject['values'] = (
 subject.state(["readonly"])
 subject.current(0)
 subject.bind('<<ComboboxSelected>>', combo)
+
+books_qty_lbl = tk.Label(window, text = 'Quantity of the books:', font=('Courier',12, 'bold'))
+books_qty= ttk.Spinbox(window, from_=1, to=100, textvariable=get_qty, width=7, justify='left')
 
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('Courier',12, 'bold'))
 author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
@@ -190,6 +191,9 @@ book_title.grid(row=1, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
 
 subject_lbl.grid(row=2, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
 subject.grid(row=2, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
+
+books_qty_lbl.grid(row=2, column=2, ipadx=10, ipady=4, pady=10, sticky='w')
+books_qty.grid(row=2, column=3, pady= 10, sticky='w')
 
 author_Lname_lbl.grid(row=3, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
 author_Lname.grid(row=3, column=1, ipadx=10, ipady=4, pady=10, sticky='w')
