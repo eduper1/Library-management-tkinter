@@ -3,8 +3,6 @@ from tkinter import ttk
 from openpyxl import workbook, load_workbook
 from PIL import ImageTk
 from PIL import Image
-# from tkinter import ttk
-# from tkinter.ttk import *
 import settings
 
 
@@ -56,6 +54,7 @@ def submit():
     get_Lname_entry = get_author_Lname.get()
     get_Oname_entry = get_author_Oname.get()
     get_quality = quality.get()
+    get_extra = extraWord.get('1.0', 'end')
     
     author_Lname.config(highlightthickness=1, highlightcolor="black")
 
@@ -68,7 +67,7 @@ def submit():
     else:
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
-                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry, get_quality]
+                data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry, get_quality, get_extra]
                 dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
                 data_list.append(dewey_code)
                 detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}'
@@ -82,6 +81,7 @@ def submit():
                 get_book_subject.set("")
                 get_author_Lname.set("")
                 get_author_Oname.set("")
+                extraWord.delete('1.0', 'end')
                 book_title.focus_set()
 
 
@@ -96,6 +96,9 @@ def btn_quit_return(Event):
 # combobox selected
 def combo(Event):
     subject.select_clear()
+
+def del_text(event):
+    extraWord.delete('1.0', 'end')
 
 # declaring string variable
 # for storing the entries value
@@ -142,7 +145,6 @@ subject.state(["readonly"])
 subject.current(0)
 subject.bind('<<ComboboxSelected>>', combo)
 
-
 author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('Courier',12, 'bold'))
 author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
 
@@ -167,7 +169,14 @@ for value in quality_values:
     )
     radioCheck.grid(row=4, column=(quality_values.index(value)+1), ipadx=10, ipady=4, pady= 10, sticky='w')
 
-# widget and label in it
+# Text
+extra_lbl = tk.Label(window, text="Extra Observation:", font=('Courier',12, 'bold'))
+extraWord = tk.Text(window, width=30, height=5)
+extraWord.insert('1.0', 'example co-author name, state or institution that published the book.')
+extraWord['wrap'] = 'word'
+extraWord.bind("<FocusIn>", del_text)
+
+# Buttons
 btn_submit = tk.Button(window, text="Submit", command=submit, font=('Courier',12, 'bold'))
 btn_submit.bind('<Return>', btn_submit_return)
 btn_quit = tk.Button(window, text="Quit", command=window.quit, font=('Courier',12, 'bold'))
@@ -190,8 +199,11 @@ author_Other_name.grid(row=3, column=3, ipadx=10, ipady=4, pady= 10, sticky='w')
 
 state_lbl.grid(row=4, column=0, ipadx=10, ipady=4, padx=10, sticky='w')
 
-btn_submit.grid(row=6, column=1, sticky="w", ipadx=10, ipady=4)
-btn_quit.grid(row=6, column=3, sticky="w", ipadx=10, ipady=4) 
+extra_lbl.grid(row=5, column=0, ipady=4, padx=10, pady= 10, sticky='w')
+extraWord.grid(row=5, column=1, columnspan=3, ipadx=4, ipady=4, pady= 10, sticky='w')
+
+btn_submit.grid(row=6, column=1, sticky="w", ipadx=10, ipady=4, pady= 10)
+btn_quit.grid(row=6, column=3, sticky="w", ipadx=10, ipady=4, pady= 10) 
 
 book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
 
