@@ -2,15 +2,17 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 from PIL import Image
+import datetime
 import settings
 import utils
 
-
+## TO-DO
+# 1. REVIST ORDER OF CONDITION BTW QTY OF BOOKS & AUTHOR'S LAST NAME
 
 # Set up the window
 window = tk.Tk()
 window.title("Book Classifier")
-
+window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}')
 
 
 dewey_dict = {
@@ -28,7 +30,6 @@ dewey_dict = {
     }
 
 capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
-print(capital_dict.keys())
 
 # function to get the fast 3 letters of 
 # the author's last name
@@ -50,8 +51,10 @@ def submit():
     get_qty_entry = get_qty.get()
     get_quality = quality.get()
     get_extra = extraWord.get('1.0', 'end')
+    get_time_entry = datetime.datetime.now()
     
     author_Lname.config(highlightthickness=1, highlightcolor="black")
+    books_qty.config(foreground='black')
 
     if get_Lname_entry == "":
         msg.set('value')
@@ -65,7 +68,8 @@ def submit():
                 data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry, get_quality, get_extra]
                 dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
                 data_list.append(dewey_code)
-                detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}'
+                data_list.append(get_time_entry)
+                detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}\nQuantity:\t{get_qty_entry}'
                 if int(get_qty_entry)  > 0:
                     utils.cal_qty(int(get_qty_entry), data_list)
                     msg.set(detail_msg)
@@ -73,11 +77,13 @@ def submit():
                     get_book_subject.set("")
                     get_author_Lname.set("")
                     get_author_Oname.set("")
+                    quality.set('')
                     extraWord.delete('1.0', 'end')
                     book_title.focus_set() 
 
                 else:
-                    # books_qty.config(highlightcolor="red")
+                    books_qty.focus_set()
+                    books_qty.config(foreground='red')
                     msg.set('Quantity must be greater than 1')
 
 
@@ -96,6 +102,10 @@ def combo(Event):
 
 def del_text(event):
     extraWord.delete('1.0', 'end')
+
+def no_tab(event):
+    event.widget.tk_focusNext().focus()
+    return 'break'
 
 # declaring string variable
 # for storing the entries value
@@ -176,6 +186,7 @@ extraWord = tk.Text(window, width=30, height=5)
 extraWord.insert('1.0', 'example co-author name, state or institution that published the book.')
 extraWord['wrap'] = 'word'
 extraWord.bind("<FocusIn>", del_text)
+extraWord.bind("<Tab>", no_tab)
 
 # Buttons
 btn_submit = tk.Button(window, text="Submit", command=submit, font=('Courier',12, 'bold'))
