@@ -1,4 +1,4 @@
-WIDTH = 1000
-HEIGHT = 550
+WIDTH = 1020
+HEIGHT = 600
 
 #  window.resizable(width=False, height=False)
