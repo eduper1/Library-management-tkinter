@@ -6,31 +6,6 @@ import datetime
 import settings
 import utils
 
-## TO-DO
-# 1. REVIST ORDER OF CONDITION BTW QTY OF BOOKS & AUTHOR'S LAST NAME
-
-# Set up the window
-window = tk.Tk()
-window.title("Book Classifier")
-window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}')
-
-
-dewey_dict = {
-    "Fiction":"FIC",
-    "Computer science & general works":000,
-    "Philosophy & psychology":100,
-    "religion":200,
-    "Social sciences":300,
-    "Language":400,
-    "Science":500,
-    "Technology":600,
-    "Arts & recreation":700,
-    "Literature":800,
-    "History & geography":900
-    }
-
-capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
-
 # function to get the fast 3 letters of 
 # the author's last name
 def fThree (Lname):
@@ -106,6 +81,46 @@ def del_text(event):
 def no_tab(event):
     event.widget.tk_focusNext().focus()
     return 'break'
+
+
+## TO-DO
+# 1. REVIST ORDER OF CONDITION BTW QTY OF BOOKS & AUTHOR'S LAST NAME
+
+# Set up the window
+window = tk.Tk()
+window.title("Book Classifier")
+
+# get the screen dimension
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# find the center point
+center_x = int(screen_width/2 - settings.WIDTH / 2)
+center_y = int(screen_height/2 - settings.HEIGHT / 2)
+
+window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}+{center_x}+{center_y}')
+
+# window.geometry(f'')
+
+
+
+
+dewey_dict = {
+    "Fiction":"FIC",
+    "Computer science & general works":000,
+    "Philosophy & psychology":100,
+    "religion":200,
+    "Social sciences":300,
+    "Language":400,
+    "Science":500,
+    "Technology":600,
+    "Arts & recreation":700,
+    "Literature":800,
+    "History & geography":900
+    }
+
+capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
+
 
 # declaring string variable
 # for storing the entries value
