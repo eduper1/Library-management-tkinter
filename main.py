@@ -101,8 +101,14 @@ center_y = int(screen_height/2 - settings.HEIGHT / 2)
 window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}+{center_x}+{center_y}')
 window.resizable(width=False, height=False)
 
+style = ttk.Style()
 
-frame_book = tk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, bg='#34568b')
+style.configure(
+    'TFrame', background=settings.bg_color,
+)
+
+
+frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT)
 frame_book.grid(row=0, column=0, sticky='nesw')
 window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
