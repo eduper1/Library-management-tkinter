@@ -99,8 +99,13 @@ center_x = int(screen_width/2 - settings.WIDTH / 2)
 center_y = int(screen_height/2 - settings.HEIGHT / 2)
 
 window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}+{center_x}+{center_y}')
+window.resizable(width=False, height=False)
 
-# window.geometry(f'')
+
+frame_book = tk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, bg='#34568b')
+frame_book.grid(row=0, column=0, sticky='nesw')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
 
 
 
@@ -134,23 +139,23 @@ msg = tk.StringVar()
 
 # american space logo
 as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
-tk.Label(image=as_logo).grid(row=0, column=0, pady=10, ipadx=10, sticky='w')
+tk.Label(frame_book,image=as_logo).grid(row=0, column=0, pady=10, ipadx=10, sticky='w')
 
 # header text
-tk.Label(window, text = "American Corner Mombasa", font=('Times',20, 'bold'), justify="center").grid(row=0, column=1, columnspan=2, ipady=10, sticky='ew')
+tk.Label(frame_book, text = "American Corner Mombasa", font=('Times',20, 'bold'), justify="center").grid(row=0, column=1, columnspan=2, ipady=10, sticky='ew')
 
 # mewa logo
 mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
-tk.Label(image=mewa_logo).grid(row=0, column=3, pady=10, ipadx=10, sticky='e')
+tk.Label(frame_book,image=mewa_logo).grid(row=0, column=3, pady=10, ipadx=10, sticky='e')
 
 # Create the book entry frame with an Entry
-#frm_entry = tk.Frame(master=window)
-book_title_lbl = tk.Label(window, text = 'Title of the book:', font=('Courier',12, 'bold'))
-book_title = tk.Entry(width=30, textvariable=get_book_title)
+#frm_entry = tk.Frame(master=frame_book)
+book_title_lbl = tk.Label(frame_book, text = 'Title of the book:', font=('Courier',12, 'bold'))
+book_title = tk.Entry(frame_book,width=30, textvariable=get_book_title)
 book_title.focus_set()
 
-subject_lbl = tk.Label(window, text = 'Subject of the book:', font=('Courier',12, 'bold'))
-subject = ttk.Combobox(window, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='black')
+subject_lbl = tk.Label(frame_book, text = 'Subject of the book:', font=('Courier',12, 'bold'))
+subject = ttk.Combobox(frame_book, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='black')
 subject['values'] = (
     'Fiction',
     'Computer science & general works',
@@ -168,17 +173,17 @@ subject.state(["readonly"])
 subject.current(0)
 subject.bind('<<ComboboxSelected>>', combo)
 
-books_qty_lbl = tk.Label(window, text = 'Quantity of the books:', font=('Courier',12, 'bold'))
-books_qty= ttk.Spinbox(window, from_=1, to=100, textvariable=get_qty, width=7, justify='left')
+books_qty_lbl = tk.Label(frame_book, text = 'Quantity of the books:', font=('Courier',12, 'bold'))
+books_qty= ttk.Spinbox(frame_book, from_=1, to=100, textvariable=get_qty, width=7, justify='left')
 
-author_Lname_lbl = tk.Label(window, text = "Author's Last Name:", font=('Courier',12, 'bold'))
-author_Lname = tk.Entry(width=30, textvariable=get_author_Lname)
+author_Lname_lbl = tk.Label(frame_book, text = "Author's Last Name:", font=('Courier',12, 'bold'))
+author_Lname = tk.Entry(frame_book,width=30, textvariable=get_author_Lname)
 
-author_Other_lbl = tk.Label(window, text = "Author's Other Name:", font=('Courier',12, 'bold'))
-author_Other_name = tk.Entry(width=30, textvariable=get_author_Oname)
+author_Other_lbl = tk.Label(frame_book, text = "Author's Other Name:", font=('Courier',12, 'bold'))
+author_Other_name = tk.Entry(frame_book,width=30, textvariable=get_author_Oname)
 
 # radiobutton to check quality of the book
-state_lbl = ttk.Label(window, text = "State of the book: ", font=('Courier',12, 'bold'))
+state_lbl = ttk.Label(frame_book, text = "State of the book: ", font=('Courier',12, 'bold'))
 
 quality_values = (
     'New',
@@ -188,7 +193,7 @@ quality_values = (
 
 for value in quality_values:
     radioCheck = ttk.Radiobutton(
-        window,
+        frame_book,
         text=value,
         value=value,
         variable=quality
@@ -196,20 +201,20 @@ for value in quality_values:
     radioCheck.grid(row=4, column=(quality_values.index(value)+1), ipadx=10, ipady=4, pady= 10, sticky='w')
 
 # Text
-extra_lbl = tk.Label(window, text="Extra Observation:", font=('Courier',12, 'bold'))
-extraWord = tk.Text(window, width=30, height=5)
+extra_lbl = tk.Label(frame_book, text="Extra Observation:", font=('Courier',12, 'bold'))
+extraWord = tk.Text(frame_book, width=30, height=5)
 extraWord.insert('1.0', 'example co-author name, state or institution that published the book.')
 extraWord['wrap'] = 'word'
 extraWord.bind("<FocusIn>", del_text)
 extraWord.bind("<Tab>", no_tab)
 
 # Buttons
-btn_submit = tk.Button(window, text="Submit", command=submit, font=('Courier',12, 'bold'))
+btn_submit = tk.Button(frame_book, text="Submit", command=submit, font=('Courier',12, 'bold'))
 btn_submit.bind('<Return>', btn_submit_return)
-btn_quit = tk.Button(window, text="Quit", command=window.quit, font=('Courier',12, 'bold'))
+btn_quit = tk.Button(frame_book, text="Quit", command=window.quit, font=('Courier',12, 'bold'))
 
 # feedback message
-book_detail_lbl = tk.Label(window, textvariable = msg, font=('Courier',12, 'bold'))
+book_detail_lbl = tk.Label(frame_book, textvariable = msg, font=('Courier',12, 'bold'))
 
 # GRIDS
 book_title_lbl.grid(row=1, column=0, ipadx=10, ipady=4, pady=10, sticky='w')
