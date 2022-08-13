@@ -2,7 +2,7 @@ import sqlite3
 
 WIDTH = 1020
 HEIGHT = 600
-
+bg_color = '#34568b'
 
 
 # connection = sqlite3.connect("gta.db")
