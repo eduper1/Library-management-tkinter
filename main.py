@@ -117,13 +117,36 @@ window.rowconfigure(0, weight=1)
 style.configure(
 "TLabel",
 background=settings.bg_color,
-foreground='#ecf1f8'
+foreground='#ffffff',
+# bordercolor='red',
+# borderwidth = 4
 )
 
 style.configure(
-    'TRadiobutton', background=settings.bg_color,
-    foreground='#ecf1f8',
+    'TRadiobutton', 
+    background='#34568b',
+    foreground='#ffffff',
+    # borderwidth=0
+    # activebackground='red'
 )
+style.map('TRadiobutton',
+        foreground=[('disabled', 'yellow'),
+                    ('pressed', '#ffffff'),
+                    ('active', '#ffffff')],
+        background=[('active', '#6a8ec8'),
+                    ('selected', '#152238'),],
+                    indicatoron=('#4a6984'),
+                    borderwidth='0',
+                    )
+                    
+    
+
+# style.map("C.RadioButton",
+#     foreground=[('pressed', 'red'), ('active', 'blue')],
+#     background=[('pressed', '!disabled', 'black'), ('active', 'white')]
+#     )
+# style.map('TRadiobutton',
+#         indicatoron=[('pressed', '#ececec'), ('selected', '#4a6984')])
 
 # style.configure(
 #     'TSpinbox', background=settings.bg_color,
@@ -156,7 +179,7 @@ get_book_title = tk.StringVar()
 get_book_subject = tk.StringVar()
 get_author_Lname = tk.StringVar()
 get_author_Oname = tk.StringVar()
-get_qty = tk.StringVar(value=1)
+get_qty = tk.IntVar(value=1)
 quality = tk.StringVar()
 msg = tk.StringVar()
 
