@@ -158,7 +158,7 @@ style.map('TRadiobutton',
 
 dewey_dict = {
     "Fiction":"FIC",
-    "Computer science & general works":000,
+    "Computer science & general works":"000",
     "Philosophy & psychology":100,
     "religion":200,
     "Social sciences":300,
