@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk
 from PIL import Image
+import time
 import datetime
 import settings
 import utils
@@ -48,6 +49,8 @@ def submit():
                 if int(get_qty_entry)  > 0:
                     utils.cal_qty(int(get_qty_entry), data_list)
                     msg.set(detail_msg)
+                    # style.configure('S.TButton', font=('American typewriter', 11), background='green', foreground='white')
+                    # time.sleep(1)
                     get_book_title.set("")
                     get_book_subject.set("")
                     get_author_Lname.set("")
@@ -140,6 +143,11 @@ style.map('TRadiobutton',
                     )
                     
     
+# style.theme_use('alt')
+style.configure('TButton', background='#4572ba', foreground='white')
+style.map('S.TButton', background=[('active', '#00ff00')])
+style.map('Q.TButton', background=[('active', '#ff0000')])
+# style.map('TButton', background=[('active', '#ff0000')])
 
 # style.map("C.RadioButton",
 #     foreground=[('pressed', 'red'), ('active', 'blue')],
@@ -255,9 +263,9 @@ extraWord.bind("<FocusIn>", del_text)
 extraWord.bind("<Tab>", no_tab)
 
 # Buttons
-btn_submit = ttk.Button(frame_book, text="Submit", command=submit)
+btn_submit = ttk.Button(frame_book, text="Submit", command=submit, style='S.TButton')
 btn_submit.bind('<Return>', btn_submit_return)
-btn_quit = ttk.Button(frame_book, text="Quit", command=window.quit)
+btn_quit = ttk.Button(frame_book, text="Quit", command=window.quit, style='Q.TButton')
 
 # feedback message
 book_detail_lbl = ttk.Label(frame_book, textvariable = msg)
