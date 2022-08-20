@@ -32,7 +32,7 @@ def submit():
     # author_Lname.config(highlightthickness=1, highlightcolor="black")
     # books_qty.config(foreground='black')
 
-    if get_Lname_entry == "":
+    if len(get_Lname_entry) == "":
         msg.set('value')
     elif len(get_Lname_entry) < 3:
         msg.set(fThree(get_Lname_entry))
@@ -46,13 +46,13 @@ def submit():
                 data_list.append(dewey_code)
                 data_list.append(get_time_entry)
                 detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}\nQuantity:\t{get_qty_entry}'
-                if int(get_qty_entry)  > 0:
+                if get_qty_entry  > 0 :
                     utils.cal_qty(int(get_qty_entry), data_list)
                     msg.set(detail_msg)
                     # style.configure('S.TButton', font=('American typewriter', 11), background='green', foreground='white')
                     # time.sleep(1)
                     get_book_title.set("")
-                    get_book_subject.set("")
+                    # get_book_subject.set("")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                     get_author_Lname.set("")
                     get_author_Oname.set("")
                     quality.set('')
