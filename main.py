@@ -10,8 +10,8 @@ import utils
 # function to get the fast 3 letters of 
 # the author's last name
 def fThree (Lname):
-    if len(Lname) >= 3:
-        return Lname[0:3]
+    if len(" ".join(Lname.split())) >= 3:
+        return " ".join(Lname.split())[:3]
     else:
         return f"Author's Last name must be more then 2 letters"
 
@@ -32,17 +32,20 @@ def submit():
     # author_Lname.config(highlightthickness=1, highlightcolor="black")
     # books_qty.config(foreground='black')
 
-    if len(get_Lname_entry) == "":
+    if len(get_Lname_entry.strip()) == False:
         msg.set('value')
     elif len(get_Lname_entry) < 3:
-        msg.set(fThree(get_Lname_entry))
+        # msg.set(fThree(get_Lname_entry))
+        msg.set("Author's Last name must be more then 2 letters")
         author_Lname.focus_set()
         # author_Lname.config(highlightthickness=2, highlightcolor="red")
     else:
         for key, value in capital_dict.items():
             if get_subject_entry.upper() == key:
                 data_list = [get_book_entry, get_subject_entry, get_Lname_entry, get_Oname_entry, get_quality, get_extra]
+                
                 dewey_code = f'{value}-{fThree(get_Lname_entry.upper())}'
+                
                 data_list.append(dewey_code)
                 data_list.append(get_time_entry)
                 detail_msg = f'BOOK NAME:\t{get_book_entry.upper()}\nCLASSIFICATION:\t{dewey_code}\nQuantity:\t{get_qty_entry}'
