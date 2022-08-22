@@ -25,8 +25,8 @@ def cal_qty(quantity, data_list):
         ac_cursor = ac_db.cursor()
         ac_cursor.execute('INSERT INTO books VALUES(?,?,?,?,?,?,?,?)', data_list)
         
-        for record in ac_cursor.execute('SELECT * FROM books'):
-            print(record)
+        # for record in ac_cursor.execute('SELECT * FROM books'):
+        #     print(record)
 
 
         ac_db.commit()
