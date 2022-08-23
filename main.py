@@ -7,11 +7,18 @@ import datetime
 import settings
 import utils
 
+## TO-DO
+# 1. REVIST ORDER OF CONDITION BTW QTY OF BOOKS & AUTHOR'S LAST NAME
+# 2. validiate Blank space on spinBox and entry
+# 3. time the speed change caused .split(), '',.join() in fThree function
+
 # function to get the fast 3 letters of 
 # the author's last name
 def fThree (Lname):
-    if len(" ".join(Lname.split())) >= 3:
-        return " ".join(Lname.split())[:3]
+    # if len(" ".join(Lname.split())) >= 3:
+    if len(Lname) >= 3:
+    # return " ".join(Lname.split())[:3]
+        return Lname[:3]
     else:
         return f"Author's Last name must be more then 2 letters"
 
@@ -89,8 +96,6 @@ def no_tab(event):
     return 'break'
 
 
-## TO-DO
-# 1. REVIST ORDER OF CONDITION BTW QTY OF BOOKS & AUTHOR'S LAST NAME
 
 # Set up the window
 window = tk.Tk()
@@ -110,13 +115,18 @@ window.resizable(width=False, height=False)
 style = ttk.Style()
 
 style.configure(
-    'TFrame', background=settings.bg_color,
+    'B.TFrame', background=settings.bg_color,
 )
 
 
 
-frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT)
+frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, style='B.TFrame')
 frame_book.grid(row=0, column=0, sticky='nesw')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+
+frame_navbar = ttk.Frame(window, width="800", height="200")
+frame_navbar.grid(row=0, column=0, sticky='nesw')
 window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 
