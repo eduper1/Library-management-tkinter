@@ -1,6 +1,6 @@
 import sqlite3
 
-WIDTH = 1020
+WIDTH = 1200
 HEIGHT = 600
 bg_color = '#34568b'
 
