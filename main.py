@@ -125,10 +125,10 @@ frame_book.grid(row=0, column=0, sticky='nesw')
 window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 
-frame_navbar = ttk.Frame(window, width="800", height="200")
-frame_navbar.grid(row=0, column=0, sticky='nesw')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
+# frame_navbar = ttk.Frame(window, width="800", height="200")
+# frame_navbar.grid(row=0, column=0, sticky='nesw')
+# window.columnconfigure(0, weight=1)
+# window.rowconfigure(0, weight=1)
 
 style.configure(
 "TLabel",
@@ -160,6 +160,8 @@ style.map('TRadiobutton',
 style.configure('TButton', background='#4572ba', foreground='white')
 style.map('S.TButton', background=[('active', '#00ff00')])
 style.map('Q.TButton', background=[('active', '#ff0000')])
+
+
 # style.map('TButton', background=[('active', '#ff0000')])
 
 # style.map("C.RadioButton",
@@ -176,139 +178,143 @@ style.map('Q.TButton', background=[('active', '#ff0000')])
 
 # for child in frame_book.winfo_children():
 
+def frame1():
+    global get_book_title, get_book_subject, get_author_Lname, get_author_Oname, get_qty, quality, msg
+    global extraWord, capital_dict, book_title, author_Lname, mewa_logo, as_logo
 
-dewey_dict = {
-    "Fiction":"FIC",
-    "Computer science & general works":"000",
-    "Philosophy & psychology":100,
-    "religion":200,
-    "Social sciences":300,
-    "Language":400,
-    "Science":500,
-    "Technology":600,
-    "Arts & recreation":700,
-    "Literature":800,
-    "History & geography":900
-    }
+    dewey_dict = {
+        "Fiction":"FIC",
+        "Computer science & general works":"000",
+        "Philosophy & psychology":100,
+        "religion":200,
+        "Social sciences":300,
+        "Language":400,
+        "Science":500,
+        "Technology":600,
+        "Arts & recreation":700,
+        "Literature":800,
+        "History & geography":900
+        }
 
-capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
+    capital_dict = {k.upper(): v for k,v in dewey_dict.items()}
 
 
-# declaring string variable
-# for storing the entries value
-get_book_title = tk.StringVar()
-get_book_subject = tk.StringVar()
-get_author_Lname = tk.StringVar()
-get_author_Oname = tk.StringVar()
-get_qty = tk.IntVar(value=1)
-quality = tk.StringVar()
-msg = tk.StringVar()
+    # declaring string variable
+    # for storing the entries value
+    get_book_title = tk.StringVar()
+    get_book_subject = tk.StringVar()
+    get_author_Lname = tk.StringVar()
+    get_author_Oname = tk.StringVar()
+    get_qty = tk.IntVar(value=1)
+    quality = tk.StringVar()
+    msg = tk.StringVar()
 
-# american space logo
-as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
-ttk.Label(frame_book,image=as_logo).grid(row=0, column=0, pady=10, padx=10, sticky='w')
+    # american space logo
+    as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
+    ttk.Label(frame_book,image=as_logo).grid(row=0, column=0, pady=10, padx=10, sticky='w')
 
-# header text
-ttk.Label(frame_book, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, padx=10, ipady=10, sticky='ew')
+    # header text
+    ttk.Label(frame_book, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, padx=10, ipady=10, sticky='ew')
 
-# mewa logo
-mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
-ttk.Label(frame_book,image=mewa_logo).grid(row=0, column=3, pady=10, padx=10, sticky='e')
+    # mewa logo
+    mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
+    ttk.Label(frame_book,image=mewa_logo).grid(row=0, column=3, pady=10, padx=10, sticky='e')
 
-# Create the book entry frame with an Entry
-#frm_entry = tk.Frame(master=frame_book)
-book_title_lbl = ttk.Label(frame_book, text = 'Title of the book:', font=('Courier',12, 'bold'))
-book_title = ttk.Entry(frame_book,width=30, textvariable=get_book_title)
-book_title.focus_set()
+    # Create the book entry frame with an Entry
+    #frm_entry = tk.Frame(master=frame_book)
+    book_title_lbl = ttk.Label(frame_book, text = 'Title of the book:', font=('Courier',12, 'bold'))
+    book_title = ttk.Entry(frame_book,width=30, textvariable=get_book_title)
+    book_title.focus_set()
 
-subject_lbl = ttk.Label(frame_book, text = 'Subject of the book:', font=('Courier',12, 'bold'))
-subject = ttk.Combobox(frame_book, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='black')
-subject['values'] = (
-    'Fiction',
-    'Computer science & general works',
-    'Philosophy & psychology',
-    'Religion',
-    'Social sciences',
-    'Language',
-    'Science',
-    'Technology',
-    'Arts & recreation',
-    'Literature',
-    'History & geography'
-)
-subject.state(["readonly"])
-subject.current(0)
-subject.bind('<<ComboboxSelected>>', combo)
-
-books_qty_lbl = ttk.Label(frame_book, text = 'Quantity of the books:', font=('Courier',12, 'bold'))
-books_qty= ttk.Spinbox(frame_book, from_=1, to=100, textvariable=get_qty, width=7, justify='left')
-
-author_Lname_lbl = ttk.Label(frame_book, text = "Author's Last Name:", font=('Courier',12, 'bold'))
-author_Lname = ttk.Entry(frame_book,width=30, textvariable=get_author_Lname)
-
-author_Other_lbl = ttk.Label(frame_book, text = "Author's Other Name:", font=('Courier',12, 'bold'))
-author_Other_name = ttk.Entry(frame_book,width=30, textvariable=get_author_Oname)
-
-# radiobutton to check quality of the book
-state_lbl = ttk.Label(frame_book, text = "State of the book: ", font=('Courier',12, 'bold'))
-
-quality_values = (
-    'New',
-    'Used',
-    'Old'
-)
-
-for value in quality_values:
-    radioCheck = ttk.Radiobutton(
-        frame_book,
-        text=value,
-        value=value,
-        variable=quality
+    subject_lbl = ttk.Label(frame_book, text = 'Subject of the book:', font=('Courier',12, 'bold'))
+    subject = ttk.Combobox(frame_book, width=23, textvariable=get_book_subject, font=("serif", 10, "bold"), foreground='black')
+    subject['values'] = (
+        'Fiction',
+        'Computer science & general works',
+        'Philosophy & psychology',
+        'Religion',
+        'Social sciences',
+        'Language',
+        'Science',
+        'Technology',
+        'Arts & recreation',
+        'Literature',
+        'History & geography'
     )
-    radioCheck.grid(row=4, column=(quality_values.index(value)+1), padx=10, ipady=4, pady= 10, sticky='w')
+    subject.state(["readonly"])
+    subject.current(0)
+    subject.bind('<<ComboboxSelected>>', combo)
 
-# Text
-extra_lbl = ttk.Label(frame_book, text="Extra Observation:", font=('Courier',12, 'bold'))
-extraWord = tk.Text(frame_book, width=30, height=5)
-extraWord.insert('1.0', 'example co-author name, state or institution that published the book.')
-extraWord['wrap'] = 'word'
-extraWord.bind("<FocusIn>", del_text)
-extraWord.bind("<Tab>", no_tab)
+    books_qty_lbl = ttk.Label(frame_book, text = 'Quantity of the books:', font=('Courier',12, 'bold'))
+    books_qty= ttk.Spinbox(frame_book, from_=1, to=100, textvariable=get_qty, width=7, justify='left')
 
-# Buttons
-btn_submit = ttk.Button(frame_book, text="Submit", command=submit, style='S.TButton')
-btn_submit.bind('<Return>', btn_submit_return)
-btn_quit = ttk.Button(frame_book, text="Quit", command=window.quit, style='Q.TButton')
+    author_Lname_lbl = ttk.Label(frame_book, text = "Author's Last Name:", font=('Courier',12, 'bold'))
+    author_Lname = ttk.Entry(frame_book,width=30, textvariable=get_author_Lname)
 
-# feedback message
-book_detail_lbl = ttk.Label(frame_book, textvariable = msg)
+    author_Other_lbl = ttk.Label(frame_book, text = "Author's Other Name:", font=('Courier',12, 'bold'))
+    author_Other_name = ttk.Entry(frame_book,width=30, textvariable=get_author_Oname)
 
-# GRIDS
-book_title_lbl.grid(row=1, column=0, padx=10, ipady=4, pady=10, sticky='w')
-book_title.grid(row=1, column=1, padx=10, ipady=4, pady=10, sticky='w')
+    # radiobutton to check quality of the book
+    state_lbl = ttk.Label(frame_book, text = "State of the book: ", font=('Courier',12, 'bold'))
 
-subject_lbl.grid(row=2, column=0, padx=10, ipady=4, pady=10, sticky='w')
-subject.grid(row=2, column=1, padx=10, ipady=4, pady=10, sticky='w')
+    quality_values = (
+        'New',
+        'Used',
+        'Old'
+    )
 
-books_qty_lbl.grid(row=2, column=2, padx=10, ipady=4, pady=10, sticky='w')
-books_qty.grid(row=2, column=3, pady= 10, padx=10, sticky='w')
+    for value in quality_values:
+        radioCheck = ttk.Radiobutton(
+            frame_book,
+            text=value,
+            value=value,
+            variable=quality
+        )
+        radioCheck.grid(row=4, column=(quality_values.index(value)+1), padx=10, ipady=4, pady= 10, sticky='w')
 
-author_Lname_lbl.grid(row=3, column=0, padx=10, ipady=4, pady=10, sticky='w')
-author_Lname.grid(row=3, column=1, padx=10, ipady=4, pady=10, sticky='w')
+    # Text
+    extra_lbl = ttk.Label(frame_book, text="Extra Observation:", font=('Courier',12, 'bold'))
+    extraWord = tk.Text(frame_book, width=30, height=5)
+    extraWord.insert('1.0', 'example co-author name, state or institution that published the book.')
+    extraWord['wrap'] = 'word'
+    extraWord.bind("<FocusIn>", del_text)
+    extraWord.bind("<Tab>", no_tab)
 
-author_Other_lbl.grid(row=3, column=2, ipady=4, pady=10, padx=10, sticky='w')
-author_Other_name.grid(row=3, column=3, padx=10, pady= 10, ipady=4, sticky='w')
+    # Buttons
+    btn_submit = ttk.Button(frame_book, text="Submit", command=submit, style='S.TButton')
+    btn_submit.bind('<Return>', btn_submit_return)
+    btn_quit = ttk.Button(frame_book, text="Quit", command=window.quit, style='Q.TButton')
 
-state_lbl.grid(row=4, column=0, padx=10, ipady=4, sticky='w')
+    # feedback message
+    book_detail_lbl = ttk.Label(frame_book, textvariable = msg)
 
-extra_lbl.grid(row=5, column=0, ipady=4, padx=10, pady= 10, sticky='w')
-extraWord.grid(row=5, column=1, columnspan=3, padx=4, ipady=4, pady= 10, sticky='w')
+    # GRIDS
+    book_title_lbl.grid(row=1, column=0, padx=10, ipady=4, pady=10, sticky='w')
+    book_title.grid(row=1, column=1, padx=10, ipady=4, pady=10, sticky='w')
 
-btn_submit.grid(row=6, column=1, sticky="w", padx=10, ipady=4, pady= 10)
-btn_quit.grid(row=6, column=3, sticky="w", padx=10, ipady=4, pady= 10) 
+    subject_lbl.grid(row=2, column=0, padx=10, ipady=4, pady=10, sticky='w')
+    subject.grid(row=2, column=1, padx=10, ipady=4, pady=10, sticky='w')
 
-book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
+    books_qty_lbl.grid(row=2, column=2, padx=10, ipady=4, pady=10, sticky='w')
+    books_qty.grid(row=2, column=3, pady= 10, padx=10, sticky='w')
 
+    author_Lname_lbl.grid(row=3, column=0, padx=10, ipady=4, pady=10, sticky='w')
+    author_Lname.grid(row=3, column=1, padx=10, ipady=4, pady=10, sticky='w')
+
+    author_Other_lbl.grid(row=3, column=2, ipady=4, pady=10, padx=10, sticky='w')
+    author_Other_name.grid(row=3, column=3, padx=10, pady= 10, ipady=4, sticky='w')
+
+    state_lbl.grid(row=4, column=0, padx=10, ipady=4, sticky='w')
+
+    extra_lbl.grid(row=5, column=0, ipady=4, padx=10, pady= 10, sticky='w')
+    extraWord.grid(row=5, column=1, columnspan=3, padx=4, ipady=4, pady= 10, sticky='w')
+
+    btn_submit.grid(row=6, column=1, sticky="w", padx=10, ipady=4, pady= 10)
+    btn_quit.grid(row=6, column=3, sticky="w", padx=10, ipady=4, pady= 10) 
+
+    book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
+
+frame1()
 
 # Run the application
 window.mainloop()
