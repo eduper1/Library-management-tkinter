@@ -12,6 +12,13 @@ import utils
 # 2. validiate Blank space on spinBox and entry
 # 3. time the speed change caused .split(), '',.join() in fThree function
 
+# clear all widget children
+def clear_widgets(frame):
+	# select all frame widgets and delete them
+	for widget in frame.winfo_children():
+		widget.destroy()
+
+
 # function to get the fast 3 letters of 
 # the author's last name
 def fThree (Lname):
@@ -95,90 +102,10 @@ def no_tab(event):
     event.widget.tk_focusNext().focus()
     return 'break'
 
-
-
-# Set up the window
-window = tk.Tk()
-window.title("Book Classifier")
-
-# get the screen dimension
-screen_width = window.winfo_screenwidth()
-screen_height = window.winfo_screenheight()
-
-# find the center point
-center_x = int(screen_width/2 - settings.WIDTH / 2)
-center_y = int(screen_height/2 - settings.HEIGHT / 2)
-
-window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}+{center_x}+{center_y}')
-window.resizable(width=False, height=False)
-
-style = ttk.Style()
-
-style.configure(
-    'B.TFrame', background=settings.bg_color,
-)
-
-
-
-frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, style='B.TFrame')
-frame_book.grid(row=0, column=0, sticky='nesw')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
-
-# frame_navbar = ttk.Frame(window, width="800", height="200")
-# frame_navbar.grid(row=0, column=0, sticky='nesw')
-# window.columnconfigure(0, weight=1)
-# window.rowconfigure(0, weight=1)
-
-style.configure(
-"TLabel",
-background=settings.bg_color,
-foreground='#ffffff',
-# bordercolor='red',
-# borderwidth = 4
-)
-
-style.configure(
-    'TRadiobutton', 
-    background='#34568b',
-    foreground='#ffffff',
-    # borderwidth=0
-    # activebackground='red'
-)
-style.map('TRadiobutton',
-        foreground=[('disabled', 'yellow'),
-                    ('pressed', '#ffffff'),
-                    ('active', '#ffffff')],
-        background=[('active', '#6a8ec8'),
-                    ('selected', '#152238'),],
-                    indicatoron=('#4a6984'),
-                    borderwidth='0',
-                    )
-                    
-    
-# style.theme_use('alt')
-style.configure('TButton', background='#4572ba', foreground='white')
-style.map('S.TButton', background=[('active', '#00ff00')])
-style.map('Q.TButton', background=[('active', '#ff0000')])
-
-
-# style.map('TButton', background=[('active', '#ff0000')])
-
-# style.map("C.RadioButton",
-#     foreground=[('pressed', 'red'), ('active', 'blue')],
-#     background=[('pressed', '!disabled', 'black'), ('active', 'white')]
-#     )
-# style.map('TRadiobutton',
-#         indicatoron=[('pressed', '#ececec'), ('selected', '#4a6984')])
-
-# style.configure(
-#     'TSpinbox', background=settings.bg_color,
-#     foreground='#c7d5ea',
-# )
-
-# for child in frame_book.winfo_children():
-
 def frame1():
+    clear_widgets(frame_search)
+    frame_book.tkraise()
+    frame_book.pack_propagate(False)
     global get_book_title, get_book_subject, get_author_Lname, get_author_Oname, get_qty, quality, msg
     global extraWord, capital_dict, book_title, author_Lname, mewa_logo, as_logo
 
@@ -314,7 +241,141 @@ def frame1():
 
     book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
 
+def search_frame():
+    global mewa_logo, as_logo
+    clear_widgets(frame_book)
+    frame_search.tkraise()
+
+    # american space logo
+    as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
+    ttk.Label(frame_search,image=as_logo).grid(row=0, column=0, pady=10, padx=10, sticky='w')
+
+    # header text
+    ttk.Label(frame_search, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, padx=10, ipady=10, sticky='ew')
+
+    # mewa logo
+    mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
+    ttk.Label(frame_search,image=mewa_logo).grid(row=0, column=3, pady=10, padx=10, sticky='e')
+    print("hi")
+
+def navbar():
+    frame_navbar.tkraise()
+    # btn_names = (
+    #     'Search',
+    #     'Register a book',
+    # )
+
+    # for btn in btn_names:
+    #     btns = ttk.Button(
+    #         frame_navbar,
+    #         text=btn,
+    #         style="TButton"
+    #     )
+    #     btns.grid(row=(btn_names.index(btn)+1), column=0, padx=10, ipady=4, pady= 10, sticky='w')
+    #     btns["command"]=search_frame
+    btn_search = ttk.Button(frame_navbar, text="search", style="TButton", command=search_frame)
+    btn_search.grid(row=0, column=0, padx=10, ipady=4, pady= 10, sticky='w')
+
+    btn_reg = ttk.Button(frame_navbar, text="Register a book", style="TButton", command=frame1)
+    btn_reg.grid(row=1, column=0, padx=10, ipady=4, pady= 10, sticky='w')
+
+        
+
+# Set up the window
+window = tk.Tk()
+window.title("Book Classifier")
+
+# get the screen dimension
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# find the center point
+center_x = int(screen_width/2 - settings.WIDTH / 2)
+center_y = int(screen_height/2 - settings.HEIGHT / 2)
+
+window.geometry(f'{settings.WIDTH}x{settings.HEIGHT}+{center_x}+{center_y}')
+# window.resizable(width=False, height=False)
+
+style = ttk.Style()
+
+style.configure(
+    'B.TFrame', background=settings.bg_color,
+)
+
+
+
+frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, style='B.TFrame')
+frame_book.grid(row=0, column=1, sticky='nesw')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+frame_book.pack_propagate(False)
+
+# Navbar frame
+frame_navbar = ttk.Frame(window, style='B.TFrame')
+frame_navbar.grid(row=0, column=0, sticky='nesw')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+# frame_navbar.pack_propagate(False)
+
+# search frame
+frame_search = ttk.Frame(window,style='B.TFrame')
+frame_search.grid(row=0, column=1, sticky='nesw')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+# frame_search.pack_propagate(False)
+
+
+style.configure(
+"TLabel",
+background=settings.bg_color,
+foreground='#ffffff',
+# bordercolor='red',
+# borderwidth = 4
+)
+
+style.configure(
+    'TRadiobutton', 
+    background='#34568b',
+    foreground='#ffffff',
+    # borderwidth=0
+    # activebackground='red'
+)
+style.map('TRadiobutton',
+        foreground=[('disabled', 'yellow'),
+                    ('pressed', '#ffffff'),
+                    ('active', '#ffffff')],
+        background=[('active', '#6a8ec8'),
+                    ('selected', '#152238'),],
+                    indicatoron=('#4a6984'),
+                    borderwidth='0',
+                    )
+                    
+    
+# style.theme_use('alt')
+style.configure('TButton', background='#4572ba', foreground='white')
+style.map('S.TButton', background=[('active', '#00ff00')])
+style.map('Q.TButton', background=[('active', '#ff0000')])
+
+
+# style.map('TButton', background=[('active', '#ff0000')])
+
+# style.map("C.RadioButton",
+#     foreground=[('pressed', 'red'), ('active', 'blue')],
+#     background=[('pressed', '!disabled', 'black'), ('active', 'white')]
+#     )
+# style.map('TRadiobutton',
+#         indicatoron=[('pressed', '#ececec'), ('selected', '#4a6984')])
+
+# style.configure(
+#     'TSpinbox', background=settings.bg_color,
+#     foreground='#c7d5ea',
+# )
+
+# for child in frame_book.winfo_children():
+
+
 frame1()
+navbar()
 
 # Run the application
 window.mainloop()
