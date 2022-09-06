@@ -251,12 +251,23 @@ def search_frame():
     ttk.Label(frame_search,image=as_logo).grid(row=0, column=0, pady=10, padx=10, sticky='w')
 
     # header text
-    ttk.Label(frame_search, text = "American Corner Mombasa", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, padx=10, ipady=10, sticky='ew')
+    ttk.Label(frame_search, text = "American Corner Mombasa", justify="center", font=('Times',20, 'bold')).grid(row=0, column=1, columnspan=2, padx=10, ipady=10, sticky='ew')
 
     # mewa logo
     mewa_logo = ImageTk.PhotoImage(Image.open('images/mewa-logo-1.png').resize((100,100)))
     ttk.Label(frame_search,image=mewa_logo).grid(row=0, column=3, pady=10, padx=10, sticky='e')
-    print("hi")
+    # print("hi")
+
+    # Create search bar
+    search_lbl = ttk.Label(frame_search, text="Search")
+    search_lbl.grid(row=1, column=0, padx=10, ipady=10, sticky='w')
+    
+    search_lbl = ttk.Entry(frame_search, text="Search", width=30)
+    search_lbl.grid(row=1, column=1, columnspan=2, padx=10, ipady=10, sticky='w')
+
+    search_lbl = ttk.Button(frame_search, text="Search")
+    search_lbl.grid(row=1, column=3, padx=10, ipady=10, sticky='w')
+
 
 def navbar():
     frame_navbar.tkraise()
@@ -283,6 +294,8 @@ def navbar():
 
 # Set up the window
 window = tk.Tk()
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
 window.title("Book Classifier")
 
 # get the screen dimension
@@ -302,27 +315,35 @@ style.configure(
     'B.TFrame', background=settings.bg_color,
 )
 
+style.configure(
+    'S.TFrame', background='orange',
+)
+
+style.configure(
+    'N.TFrame', background='yellow',
+)
+
 
 
 frame_book = ttk.Frame(window, width=settings.WIDTH, height=settings.HEIGHT, style='B.TFrame')
 frame_book.grid(row=0, column=1, sticky='nesw')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
 frame_book.pack_propagate(False)
+# frame_book.columnconfigure(0, weight=1)
+# frame_book.rowconfigure(0, weight=1)
 
 # Navbar frame
-frame_navbar = ttk.Frame(window, style='B.TFrame')
+frame_navbar = ttk.Frame(window, style='N.TFrame')
 frame_navbar.grid(row=0, column=0, sticky='nesw')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
-# frame_navbar.pack_propagate(False)
+# frame_navbar.columnconfigure(0, weight=1)
+# frame_navbar.rowconfigure(0, weight=1)
+frame_navbar.pack_propagate(False)
 
 # search frame
-frame_search = ttk.Frame(window,style='B.TFrame')
+frame_search = ttk.Frame(window,style='S.TFrame')
 frame_search.grid(row=0, column=1, sticky='nesw')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
-# frame_search.pack_propagate(False)
+# frame_search.columnconfigure(0, weight=1)
+# frame_search.rowconfigure(0, weight=1)
+frame_search.pack_propagate(False)
 
 
 style.configure(
