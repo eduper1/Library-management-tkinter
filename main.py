@@ -102,6 +102,11 @@ def no_tab(event):
     event.widget.tk_focusNext().focus()
     return 'break'
 
+def view_record():
+    get_record = search_entry.get()
+    print(get_record)
+    get_entry.set("")
+
 def frame1():
     clear_widgets(frame_search)
     frame_book.tkraise()
@@ -242,9 +247,11 @@ def frame1():
     book_detail_lbl.grid(row=7, column=0, columnspan=4, pady=10)
 
 def search_frame():
-    global mewa_logo, as_logo
+    global mewa_logo, as_logo, search_entry, get_entry
     clear_widgets(frame_book)
     frame_search.tkraise()
+
+    get_entry = tk.StringVar()
 
     # american space logo
     as_logo = ImageTk.PhotoImage(Image.open('images/as.png').resize((100,100)))
@@ -262,10 +269,10 @@ def search_frame():
     search_lbl = ttk.Label(frame_search, text="Search")
     search_lbl.grid(row=1, column=0, padx=10, ipady=10, sticky='w')
     
-    search_entry = ttk.Entry(frame_search, text="Search", width=30)
+    search_entry = ttk.Entry(frame_search, textvariable=get_entrysudo, width=30)
     search_entry.grid(row=1, column=1, columnspan=2, padx=10, ipady=10, sticky='w')
 
-    search_btn = ttk.Button(frame_search, text="Search")
+    search_btn = ttk.Button(frame_search, text="Search", command=view_record)
     search_btn.grid(row=1, column=3, padx=10, ipady=10, sticky='w')
 
 
