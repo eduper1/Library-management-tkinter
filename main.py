@@ -262,11 +262,11 @@ def search_frame():
     search_lbl = ttk.Label(frame_search, text="Search")
     search_lbl.grid(row=1, column=0, padx=10, ipady=10, sticky='w')
     
-    search_lbl = ttk.Entry(frame_search, text="Search", width=30)
-    search_lbl.grid(row=1, column=1, columnspan=2, padx=10, ipady=10, sticky='w')
+    search_entry = ttk.Entry(frame_search, text="Search", width=30)
+    search_entry.grid(row=1, column=1, columnspan=2, padx=10, ipady=10, sticky='w')
 
-    search_lbl = ttk.Button(frame_search, text="Search")
-    search_lbl.grid(row=1, column=3, padx=10, ipady=10, sticky='w')
+    search_btn = ttk.Button(frame_search, text="Search")
+    search_btn.grid(row=1, column=3, padx=10, ipady=10, sticky='w')
 
 
 def navbar():
