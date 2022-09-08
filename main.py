@@ -34,6 +34,7 @@ def fThree (Lname):
 # get the name and password and
 # print them on the screen
 def submit():
+    global data_list
     get_book_entry = get_book_title.get()
     get_subject_entry = get_book_subject.get()
     get_Lname_entry = get_author_Lname.get()
@@ -103,8 +104,11 @@ def no_tab(event):
     return 'break'
 
 def view_record():
+    global data_list
     get_record = search_entry.get()
-    print(get_record)
+    # print(data_list)
+    # print(get_record)
+    # utils.search(get_record, data_list)
     get_entry.set("")
 
 def frame1():
@@ -266,10 +270,10 @@ def search_frame():
     # print("hi")
 
     # Create search bar
-    search_lbl = ttk.Label(frame_search, text="Search")
+    search_lbl = ttk.Label(frame_search, text="Find a Book")
     search_lbl.grid(row=1, column=0, padx=10, ipady=10, sticky='w')
     
-    search_entry = ttk.Entry(frame_search, textvariable=get_entrysudo, width=30)
+    search_entry = ttk.Entry(frame_search, textvariable=get_entry, width=30)
     search_entry.grid(row=1, column=1, columnspan=2, padx=10, ipady=10, sticky='w')
 
     search_btn = ttk.Button(frame_search, text="Search", command=view_record)
