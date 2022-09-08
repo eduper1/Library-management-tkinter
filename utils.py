@@ -31,3 +31,13 @@ def cal_qty(quantity, data_list):
 
         ac_db.commit()
         ac_db.close()
+
+
+#  find a book
+def search(book_description, record_list):
+    ac_db=sqlite3.connect("acMombasa.db")
+    ac_cursor=ac_db.cursor()
+    ac_cursor.execute("SELECT * FROM books WHERE book_description like ? OR book_description like ? OR book_description like ? OR book_description like ? OR book_description like ?",(record_list))
+    row = ac_cursor.fetchall()
+    ac_db.close()
+    return row
